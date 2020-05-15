@@ -20,4 +20,4 @@
 
 ## Licence & copyright
 
-© Samuël W.R. Tieman, samtieman.com
+© Samuël W.R. Tieman, [samtieman.com](https://samtieman.com)
