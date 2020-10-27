@@ -1,15 +1,19 @@
 from selenium import webdriver
 from time import sleep
 from secret import email, password
+from webdriver_manager.chrome import ChromeDriverManager
 
 
 class TinderBot():
     def __init__(self):
-        self.driver = webdriver.Chrome()
+        self.driver = webdriver.Chrome(ChromeDriverManager().install())
 
     def login(self):
         self.driver.get('https://tinder.com')
         sleep(3)
+        login_btn = self.driver.find_element_by_xpath(
+            "//*[@id='content']/div/div[1]/div/main/div[1]/div/div/header/div[1]/div[2]/div/button")
+        login_btn.click()
         try:
             sleep(1)
             fb_btn = self.driver.find_element_by_xpath(
@@ -61,14 +65,25 @@ class TinderBot():
 
     def dislike(self):
         dislike_btn = self.driver.find_element_by_xpath(
-            '//*[@id="content"]/div/div[1]/div/main/div[1]/div/div/div[1]/div/div[2]/button[1]')
+            "//*[@aria-label='Nope']")
         dislike_btn.click()
 
     def auto_swipe(self):
+        from random import random
+        left_count, right_count = 0, 0
         while True:
-            sleep(0.5)
+            sleep(1)
             try:
-                self.like()
+                rand = random()
+                # print(rand)
+                if rand < .73:
+                    self.like()
+                    right_count = right_count + 1
+                    print('{}th right swipe'.format(right_count))
+                else:
+                    self.dislike()
+                    left_count = left_count + 1
+                    print('{}th left swipe'.format(left_count))
             except Exception:
                 try:
                     self.close_popup()
@@ -89,3 +104,4 @@ class TinderBot():
 bot = TinderBot()
 bot.login()
 bot.auto_swipe()
+# tests

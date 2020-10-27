@@ -1,2 +1,2 @@
-email = '[USERNAME HERE]'
-password = '[PASSWORD HERE]'
+email = '[USERNAME]'
+password = '[PASSWORD]'
